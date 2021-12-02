@@ -7,6 +7,8 @@ import axios from 'axios';
 axios.get('https://api.github.com/users/maidiance')
   .then(response => {
     console.log(response);
+    const card = createCard(response);
+    document.querySelector('.cards').appendChild(card);
   })
   .catch(error => {
     console.error(error);
@@ -93,6 +95,7 @@ function createCard(obj){
   location.textContent = 'Location: ' + obj.data.location;
   profile.textContent = 'Profile:';
   githubLink.href = obj.data.html_url;
+  githubLink.textContent = obj.data.html_url;
   followers.textContent = 'Followers: ' + obj.data.followers;
   following.textContent = 'Following: ' + obj.data.following;
   bio.textContent = 'Bio: ' + obj.data.bio;
