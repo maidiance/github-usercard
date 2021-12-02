@@ -80,37 +80,43 @@ function createCard(obj){
   const username = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
-  const githubLink = document.createElement('a');
+  const github = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
+
   // structure elements
   cardElem.appendChild(img);
   cardElem.appendChild(cardInfo);
   cardInfo.appendChild(header);
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
-  cardInfo.appendChild(profile);
-  profile.appendChild(githubLink);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
+  
   // add classes
   cardElem.classList.add('card');
   cardInfo.classList.add('card-info');
   header.classList.add('name');
   username.classList.add('username');
+
   // add content
   img.src = obj.data.avatar_url;
   header.textContent = obj.data.name;
   username.textContent = obj.data.login;
   location.textContent = 'Location: ' + obj.data.location;
-  profile.textContent = 'Profile:';
-  githubLink.href = obj.data.html_url;
-  githubLink.textContent = obj.data.html_url;
+  github.href = obj.data.html_url;
+  github.textContent = obj.data.html_url;
+  profile.textContent = 'Profile: ';
   followers.textContent = 'Followers: ' + obj.data.followers;
   following.textContent = 'Following: ' + obj.data.following;
   bio.textContent = 'Bio: ' + obj.data.bio;
+
+  // the only way the anchor tag works is to append it at the end
+  profile.appendChild(github);
+  cardInfo.appendChild(profile);
+
   // return
   return cardElem;
 }
