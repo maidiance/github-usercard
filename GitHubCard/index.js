@@ -58,6 +58,33 @@ const followersArray = [];
     </div>
 */
 
+function createCard(obj){
+  // create elements
+  const cardElem = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const header = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  // structure elements
+  cardElem.appendChild(img);
+  cardElem.appendChild(cardInfo);
+  cardInfo.appendChild(header);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  // add classes
+  cardElem.classList.add('card');
+  cardInfo.classList.add('card-info');
+  header.classList.add('name');
+  username.classList.add('username');
+  // add content
+  img.src = obj.data.avatar_url;
+  header.textContent = obj.data.login;
+  location.textContent = obj.data.location;
+  // return
+  return cardElem;
+}
+
 /*
   List of LS Instructors Github username's:
     tetondan
