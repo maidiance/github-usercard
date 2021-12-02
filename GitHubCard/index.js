@@ -91,7 +91,8 @@ function createCard(obj){
   username.classList.add('username');
   // add content
   img.src = obj.data.avatar_url;
-  header.textContent = obj.data.login;
+  header.textContent = obj.data.name;
+  username.textContent = obj.data.login;
   location.textContent = 'Location: ' + obj.data.location;
   profile.textContent = 'Profile:';
   githubLink.href = obj.data.html_url;
