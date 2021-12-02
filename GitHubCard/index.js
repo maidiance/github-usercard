@@ -66,12 +66,22 @@ function createCard(obj){
   const header = document.createElement('h3');
   const username = document.createElement('p');
   const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const githubLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
   // structure elements
   cardElem.appendChild(img);
   cardElem.appendChild(cardInfo);
   cardInfo.appendChild(header);
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(githubLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
   // add classes
   cardElem.classList.add('card');
   cardInfo.classList.add('card-info');
@@ -80,7 +90,12 @@ function createCard(obj){
   // add content
   img.src = obj.data.avatar_url;
   header.textContent = obj.data.login;
-  location.textContent = obj.data.location;
+  location.textContent = 'Location: ' + obj.data.location;
+  profile.textContent = 'Profile:';
+  githubLink.href = obj.data.html_url;
+  followers.textContent = 'Followers: ' + obj.data.followers;
+  following.textContent = 'Following: ' + obj.data.following;
+  bio.textContent = 'Bio: ' + obj.data.bio;
   // return
   return cardElem;
 }
