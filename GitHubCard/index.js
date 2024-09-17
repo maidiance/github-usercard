@@ -1,8 +1,18 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/maidiance')
+  .then(response => {
+    console.log(response);
+    const card = createCard(response);
+    document.querySelector('.cards').appendChild(card);
+  })
+  .catch(error => {
+    console.error(error);
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +38,18 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tnoin', 'tetondan', 'justsml', 'luishrd', 'bigknell'];
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`)
+    .then(response => {
+      const card = createCard(response);
+      document.querySelector('.cards').appendChild(card);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+  
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +70,56 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function createCard(obj){
+  // create elements
+  const cardElem = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const header = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const github = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // structure elements
+  cardElem.appendChild(img);
+  cardElem.appendChild(cardInfo);
+  cardInfo.appendChild(header);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
+  // add classes
+  cardElem.classList.add('card');
+  cardInfo.classList.add('card-info');
+  header.classList.add('name');
+  username.classList.add('username');
+
+  // add content
+  img.src = obj.data.avatar_url;
+  header.textContent = obj.data.name;
+  username.textContent = obj.data.login;
+  location.textContent = 'Location: ' + obj.data.location;
+  github.href = obj.data.html_url;
+  github.textContent = obj.data.html_url;
+  profile.textContent = 'Profile: ';
+  followers.textContent = 'Followers: ' + obj.data.followers;
+  following.textContent = 'Following: ' + obj.data.following;
+  bio.textContent = 'Bio: ' + obj.data.bio;
+
+  // the only way the anchor tag works is to append it at the end
+  profile.appendChild(github);
+  cardInfo.appendChild(profile);
+
+  // return
+  return cardElem;
+}
 
 /*
   List of LS Instructors Github username's:
